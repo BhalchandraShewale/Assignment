@@ -1,0 +1,444 @@
+﻿1.Create a class named 'Student' with a string variable 'name' and an integer variable 'roll_no'. Assign
+
+the value of roll_no as '2' and that of name as "John" by creating an object of the class Student.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+public:
+    string name;
+    int roll_no;
+};
+
+main() {
+    Student student1;
+    student1.name = "John";
+    student1.roll_no = 2;
+
+    cout << "Student Name: " << student1.name << endl;
+    cout << "Roll Number: " << student1.roll_no << std::endl;  
+}
+2.Assign and print the roll number, phone number and address of two students having names "Sam"
+
+and "John" respectively by creating two objects of the class 'Student'.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+public:
+    string name;
+    int roll_no;
+};
+
+main() {
+    Student student1;
+    student1.name = "John";
+    student1.roll_no = 2;
+
+    cout << "Student Name: " << student1.name << endl;
+    cout << "Roll Number: " << student1.roll_no << endl;  
+}
+
+3.Write a program to print the area and perimeter of a triangle having sides of 3, 4 and 5 units by
+
+creating a class named 'Triangle' with a function to print the area and perimeter.
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Triangle {
+public:
+    double side1, side2, side3;
+
+    void printAreaAndPerimeter() {
+        double s = (side1 + side2 + side3) / 2;
+        double area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
+        double perimeter = side1 + side2 + side3;
+
+        cout << "Area of the triangle: " << area << " square units" << endl;
+        cout << "Perimeter of the triangle: " << perimeter << " units" << endl;
+    }
+};
+
+main() {
+    Triangle triangle;
+    triangle.side1 = 3;
+    triangle.side2 = 4;
+    triangle.side3 = 5;
+
+    triangle.printAreaAndPerimeter();   
+}
+
+4.
+
+Write a program to print the area and perimeter of a triangle having sides of 3, 4 and 5 units by
+
+creating a class named 'Triangle' with the constructor having the three sides as its parameters.
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Triangle {
+public:
+    double side1, side2, side3;
+
+    Triangle(double s1, double s2, double s3) : side1(s1), side2(s2), side3(s3) {}
+
+    void printAreaAndPerimeter() {
+        double s = (side1 + side2 + side3) / 2;
+        double area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
+        double perimeter = side1 + side2 + side3;
+
+        cout << "Area of the triangle: " << area << " square units" << endl;
+        cout << "Perimeter of the triangle: " << perimeter << " units" << endl;
+    }
+};
+
+main() {
+    Triangle triangle(3, 4, 5);
+    triangle.printAreaAndPerimeter();  
+}
+
+5.
+
+Write a program to print the area of two rectangles having sides (4,5) and (5,8) respectively by
+
+creating a class named 'Rectangle' with a function named 'Area' which returns the area. Length and
+
+breadth are passed as parameters to its constructor.
+
+#include <iostream>
+using namespace std;
+
+class Rectangle {
+private:
+    double length;
+    double breadth;
+
+public:
+    Rectangle(double l, double b) : length(l), breadth(b) {}
+
+    double Area() {
+        return length * breadth;
+    }
+};
+main() {
+    Rectangle rectangle1(4, 5);
+    Rectangle rectangle2(5, 8);
+
+    cout << "Area of Rectangle 1: " << rectangle1.Area() << " square units" << endl;
+    cout << "Area of Rectangle 2: " << rectangle2.Area() << " square units" << endl;   
+}
+
+6.
+
+Write a program to print the area of a rectangle by creating a class named 'Area' having two
+
+functions. First function named as 'setDim' takes the length and breadth of the rectangle as
+
+parameters and the second function named as 'getArea' returns the area of the rectangle. Length and
+
+breadth of the rectangle are entered through keyboard.
+
+#include <iostream>
+using namespace std;
+
+class Area {
+private:
+    double length;
+    double breadth;
+
+public:
+    void setDim(double l, double b) {
+        length = l;
+        breadth = b;
+    }
+
+    double getArea() {
+        return length * breadth;
+    }
+};
+main() {
+    Area rectangle;
+    double l, b;
+
+    cout << "Enter the length of the rectangle: ";
+    cin >> l;
+    cout << "Enter the breadth of the rectangle: ";
+    cin >> b;
+
+    rectangle.setDim(l, b);
+
+    cout << "Area of the rectangle: " << rectangle.getArea() << " square units" << endl;
+}
+
+7.
+
+Write a program to print the area of a rectangle by creating a class named 'Area' taking the values of
+
+its length and breadth as parameters of its constructor and having a function named 'returnArea'
+
+which returns the area of the rectangle. Length and breadth of the rectangle are entered through
+
+keyboard.
+
+#include <iostream>
+using namespace std;
+
+class Area {
+private:
+    double length;
+    double breadth;
+
+public:
+    Area(double l, double b) : length(l), breadth(b) {}
+
+    double returnArea() {
+        return length * breadth;
+    }
+};
+main() {
+    double l, b;
+
+    cout << "Enter the length of the rectangle: ";
+    cin >> l;
+    cout << "Enter the breadth of the rectangle: ";
+    cin >> b;
+
+    Area rectangle(l, b);
+
+    cout << "Area of the rectangle: " << rectangle.returnArea() << " square units" << endl;
+}
+
+8.
+
+Print the average of three numbers entered by the user by creating a class named 'Average' having a
+
+function to calculate and print the average without creating any object of the Average class.
+
+#include <iostream>
+using namespace std;
+
+class Average {
+public:
+    static void calculateAndPrintAverage(double num1, double num2, double num3) {
+        double average = (num1 + num2 + num3) / 3;
+        cout << "Average of the three numbers: " << average <<endl;
+    }
+};
+
+main() {
+    double num1, num2, num3;
+
+    cout << "Enter three numbers: ";
+    cin >> num1 >> num2 >> num3;
+
+    Average::calculateAndPrintAverage(num1, num2, num3);
+}
+
+10.
+
+Write a program to print the volume of a box by creating a class named 'Volume' with an
+
+initialization list to initialize its length, breadth and height. (just to make you familiar with
+
+initialization lists)
+
+#include <iostream>
+using namespace std;
+
+class Volume {
+private:
+    double length;
+    double breadth;
+    double height;
+
+public:
+    Volume(double l, double b, double h) : length(l), breadth(b), height(h) {}
+    void calculateVolume() {
+        double volume = length * breadth * height;
+        cout << "Volume of the box: " << volume << endl;
+    }
+};
+
+main() {
+    double l, b, h;
+
+    cout << "Enter the length, breadth, and height of the box: ";
+    cin >> l >> b >> h;
+
+    Volume box(l, b, h);
+    box.calculateVolume();
+}
+
+11.
+
+Write a program that would print the information (name, year of joining, salary, address) of three
+
+employees by creating a class named 'Employee'. The output should be as follows:
+
+Name Year of joining Address
+
+Robert 1994 64C- WallsStreat
+
+Sam 2000 68D- WallsStreat
+
+John 1999 26B- WallsStreat
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int yearOfJoining;
+    string address;
+
+public:
+    Employee(std::string n, int yoj, string addr) : name(n), yearOfJoining(yoj), address(addr) {}
+
+    void printInfo() {
+        cout << name << " " << yearOfJoining << " " << address << endl;
+    }
+};
+
+main() {
+    Employee emp1("Robert", 1994, "64C- WallsStreat");
+    Employee emp2("Sam", 2000, "68D- WallsStreat");
+    Employee emp3("John", 1999, "26B- WallsStreat");
+
+    cout << "Name Year of joining Address" << endl;
+    emp1.printInfo();
+    emp2.printInfo();
+    emp3.printInfo();
+}
+
+12.
+
+Write a program to print the name, salary and date of joining of 10 employees in a company. Use
+
+array of objects.
+
+#include <iostream>
+#include <string>
+using namespace std:
+
+class Employee {
+private:
+    string name;
+    double salary;
+    string dateOfJoining;
+
+public:
+    Employee(string n, double sal, string doj) : name(n), salary(sal), dateOfJoining(doj) {}
+
+    void printInfo() {
+        cout << name << " " << salary << " " << dateOfJoining << endl;
+    }
+};
+
+main() {
+    Employee employees[10] = {
+        Employee("Employee1", 50000, "01/01/2010"),
+        Employee("Employee2", 60000, "02/02/2011"),
+        Employee("Employee3", 70000, "03/03/2012"),
+        Employee("Employee4", 80000, "04/04/2013"),
+        Employee("Employee5", 90000, "05/05/2014"),
+        Employee("Employee6", 100000, "06/06/2015"),
+        Employee("Employee7", 110000, "07/07/2016"),
+        Employee("Employee8", 120000, "08/08/2017"),
+        Employee("Employee9", 130000, "09/09/2018"),
+        Employee("Employee10", 140000, "10/10/2019")
+    };
+
+    cout << "Name Salary Date of Joining" << endl;
+    for (int i = 0; i < 10; ++i) {
+        employees[i].printInfo();
+    }
+}
+
+13.
+
+Write a program to print the roll number and average marks of 8 students in three subjects (each
+
+out of 100). The marks are entered by the user and the roll numbers are automatically assigned.
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+class Student {
+private:
+    static int nextRollNumber;
+    int rollNumber;
+    double marksSubject1;
+    double marksSubject2;
+    double marksSubject3;
+
+public:
+ 
+    Student(double m1, double m2, double m3) : marksSubject1(m1), marksSubject2(m2), marksSubject3(m3) {
+        rollNumber = nextRollNumber++;
+    }
+
+    void printAverageMarks() {
+        double average = (marksSubject1 + marksSubject2 + marksSubject3) / 3;
+        cout << "Roll Number: " << rollNumber << " Average Marks: " << fixed << setprecision(2) << average << endl;
+    }
+};
+
+int Student::nextRollNumber = 1;
+main() {
+    Student students[8];
+
+    double marks1, marks2, marks3;
+    for (int i = 0; i < 8; ++i) {
+        cout << "Enter marks for Student " << i + 1 << " in three subjects (out of 100): ";
+        cin >> marks1 >> marks2 >> marks3;
+        students[i] = Student(marks1, marks2, marks3);
+    }
+
+    cout << "Roll Number Average Marks" << endl;
+    for (int i = 0; i < 8; ++i) {
+        students[i].printAverageMarks();
+    }
+}
+
+14.
+
+Write a program to calculate the average height of all the students of a class. The number of students
+
+and their heights are entered by the user.
+
+#include <iostream>
+using namespace std;
+
+main() {
+    int numStudents;
+    double totalHeight = 0.0;
+
+    cout << "Enter the number of students in the class: ";
+    cin >> numStudents;
+
+    double height;
+    for (int i = 0; i < numStudents; ++i) {
+        cout << "Enter the height of student " << i + 1 << " in meters: ";
+        cin >> height;
+        totalHeight += height;
+    }
+
+    if (numStudents > 0) {
+        double averageHeight = totalHeight / numStudents;
+        cout << "Average height of all students in the class: " << averageHeight << " meters" << endl;
+    } else {
+        cout << "No students in the class to calculate average height." << endl;
+    }
+}
+
