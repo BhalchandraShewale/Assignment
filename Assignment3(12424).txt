@@ -1,0 +1,686 @@
+package assignment3;
+
+class Account {
+	protected String accNumber;
+	protected double balance;
+
+	public Account(String accNumber, double balance) {
+		this.accNumber = accNumber;
+		this.balance = balance;
+	}
+
+	public void withdraw(double amount) {
+		if (amount > balance) {
+			System.out.println("Insufficient balance.");
+		} else {
+			balance -= amount;
+			System.out.println("Withdrawn " + amount + " successfully. New balance: " + balance);
+		}
+	}
+
+	public void deposit(double amount) {
+		balance += amount;
+		System.out.println("Deposited " + amount + " successfully. New balance: " + balance);
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+}
+
+class SavingsAccount extends Account {
+	private static final double INTEREST_RATE = 0.05;
+
+	public SavingsAccount(String accNumber, double balance) {
+		super(accNumber, balance);
+	}
+
+	public void applyInterest() {
+		double interestAmount = balance * INTEREST_RATE;
+		deposit(interestAmount);
+		System.out.println("Interest applied. New balance: " + balance);
+	}
+}
+
+class Customer {
+	private String name;
+	private String address;
+	private String mobileNumber;
+	private Account account;
+
+	public Customer(String name, String address, String mobileNumber, Account account) {
+		this.name = name;
+		this.address = address;
+		this.mobileNumber = mobileNumber;
+		this.account = account;
+	}
+
+	public void withdraw(double amount) {
+		account.withdraw(amount);
+	}
+
+	public void deposit(double amount) {
+		account.deposit(amount);
+	}
+
+	public String getAccountDetails() {
+		return "Account Number: " + account.accNumber + ", Balance: " + account.getBalance();
+	}
+
+	public void transfer(double amount, Account recipientAccount) {
+		if (amount > account.getBalance()) {
+			System.out.println("Insufficient balance.");
+		} else {
+			account.withdraw(amount);
+			recipientAccount.deposit(amount);
+			System.out.println("Transferred " + amount + " successfully to " + recipientAccount.accNumber);
+		}
+	}
+
+	public String displayDetails() {
+		return "Name: " + name + ", Address: " + address + ", Mobile Number: " + mobileNumber + ", "
+				+ getAccountDetails();
+	}
+}
+
+class Bank {
+	private static final int MAX_SIZE = 100;
+
+	protected Account[] accounts;
+	protected int size;
+
+	public Bank() {
+		accounts = new Account[MAX_SIZE];
+		size = 0;
+	}
+
+	public void addAccount(Account account) {
+		if (size < MAX_SIZE) {
+			accounts[size++] = account;
+			System.out.println("Account added successfully.");
+		} else {
+			System.out.println("Cannot add more accounts. Bank capacity reached.");
+		}
+	}
+
+	public void removeAccount(String accNumber) {
+		for (int i = 0; i < size; i++) {
+			if (accounts[i].accNumber.equals(accNumber)) {
+				accounts[i] = accounts[size - 1];
+				size--;
+				System.out.println("Account removed successfully.");
+				return;
+			}
+		}
+		System.out.println("Account not found.");
+	}
+
+	public void displayAccountDetails() {
+		for (int i = 0; i < size; i++) {
+			System.out.println("Account Number: " + accounts[i].accNumber + ", Balance: " + accounts[i].getBalance());
+		}
+	}
+}
+
+class BankTester {
+	public static void main(String[] args) {
+		Bank bank = new Bank();
+
+		// Creating accounts and customers
+		Account acc1 = new SavingsAccount("125", 1000);
+		Account acc2 = new Account("453", 500);
+		Customer cust1 = new Customer("Adbede", "Nashik", "54765474", acc1);
+		Customer cust2 = new Customer("XYZ", "Pune", "798687576", acc2);
+
+		bank.addAccount(acc1);
+		bank.addAccount(acc2);
+
+		System.out.println("Initial Customer Details:");
+		System.out.println(cust1.displayDetails());
+		System.out.println(cust2.displayDetails());
+
+		cust1.deposit(400);
+		cust1.withdraw(200);
+
+		cust1.transfer(300, acc2);
+
+		if (acc1 instanceof SavingsAccount) {
+			((SavingsAccount) acc1).applyInterest();
+		}
+
+		System.out.println("Updated Customer Details:");
+		System.out.println(cust1.displayDetails());
+		System.out.println(cust2.displayDetails());
+
+		System.out.println("All Account Details:");
+		bank.displayAccountDetails();
+	}
+}
+=================================================================================================
+package assignment3;
+
+import java.util.Scanner;
+
+public class Complex {
+	private double real;
+	private double imaginary;
+
+	public Complex(double real, double imaginary) {
+		this.real = real;
+		this.imaginary = imaginary;
+	}
+
+	public Complex add(Complex other) {
+		return new Complex(this.real + other.real, this.imaginary + other.imaginary);
+	}
+
+	public Complex subtract(Complex other) {
+		return new Complex(this.real - other.real, this.imaginary - other.imaginary);
+	}
+
+	public Complex multiply(Complex other) {
+		double newReal = this.real * other.real - this.imaginary * other.imaginary;
+		double newImaginary = this.real * other.imaginary + this.imaginary * other.real;
+		return new Complex(newReal, newImaginary);
+	}
+
+	public void display() {
+		System.out.println("Result: " + real + " + " + imaginary + "i");
+	}
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Enter real and imaginary parts of first complex number:");
+		double real1 = scanner.nextDouble();
+		double imaginary1 = scanner.nextDouble();
+		Complex complex1 = new Complex(real1, imaginary1);
+
+		System.out.println("Enter real and imaginary parts of second complex number:");
+		double real2 = scanner.nextDouble();
+		double imaginary2 = scanner.nextDouble();
+		Complex complex2 = new Complex(real2, imaginary2);
+
+		Complex sum = complex1.add(complex2);
+		System.out.println("Sum:");
+		sum.display();
+
+		Complex difference = complex1.subtract(complex2);
+		System.out.println("Difference:");
+		difference.display();
+
+		Complex product = complex1.multiply(complex2);
+		System.out.println("Product:");
+		product.display();
+
+	}
+}
+=====================================================================================================================
+package assignment3;
+
+import java.util.Arrays;
+
+class Book {
+	private String title;
+	private String author;
+
+	public Book(String title, String author) {
+		this.title = title;
+		this.author = author;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	@Override
+	public String toString() {
+		return "Book{" + "title='" + title + '\'' + ", author='" + author + '\'' + '}';
+	}
+}
+
+class Library {
+	private Book[] books;
+	private int size;
+
+	public Library(int capacity) {
+		this.books = new Book[capacity];
+		this.size = 0;
+	}
+
+	public void addBook(Book book) {
+		if (size < books.length) {
+			books[size++] = book;
+			System.out.println("Book added successfully.");
+		} else {
+			System.out.println("Library is full. Cannot add more books.");
+		}
+	}
+
+	public void removeBook(String title) {
+		for (int i = 0; i < size; i++) {
+			if (books[i].getTitle().equals(title)) {
+				for (int j = i; j < size - 1; j++) {
+					books[j] = books[j + 1];
+				}
+				books[size - 1] = null; 
+				size--;
+				System.out.println("Book removed successfully.");
+				return;
+			}
+		}
+		System.out.println("Book not found.");
+	}
+
+	public void displayBooks() {
+		if (size == 0) {
+			System.out.println("Library is empty.");
+		} else {
+			System.out.println("Books in the library:");
+			for (int i = 0; i < size; i++) {
+				System.out.println(books[i]);
+			}
+		}
+	}
+}
+
+public class LibraryTest {
+	public static void main(String[] args) {
+		Library library = new Library(5);
+
+		library.addBook(new Book("The Great Gatsby", "F. Scott Fitzgerald"));
+		library.addBook(new Book("To Kill a Mockingbird", "Harper Lee"));
+		library.addBook(new Book("1976", "George Orwell"));
+
+		library.displayBooks();
+
+		library.removeBook("To Kill a Mockingbird");
+
+		library.displayBooks();
+	}
+}
+================================================================================================================
+package assignment3;
+
+import java.util.Scanner;
+
+public class Matrix {
+	private int rows;
+	private int columns;
+	private int[][] elements;
+
+	public Matrix(int rows, int columns) {
+		this.rows = rows;
+		this.columns = columns;
+		this.elements = new int[rows][columns];
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	public void setElement(int i, int j, int value) {
+		if (i >= 0 && i < rows && j >= 0 && j < columns) {
+			elements[i][j] = value;
+		} else {
+			System.out.println("Invalid position for setting element.");
+		}
+	}
+
+	public void add(Matrix other) {
+		if (this.rows == other.rows && this.columns == other.columns) {
+			System.out.println("Addition Result:");
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < columns; j++) {
+					System.out.print((this.elements[i][j] + other.elements[i][j]) + " ");
+				}
+				System.out.println();
+			}
+		} else {
+			System.out.println("Matrices cannot be added.");
+		}
+	}
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Enter the number of rows and columns for the first matrix:");
+		int rows1 = scanner.nextInt();
+		int columns1 = scanner.nextInt();
+		Matrix matrix1 = new Matrix(rows1, columns1);
+
+		System.out.println("Enter the elements of the first matrix:");
+		for (int i = 0; i < rows1; i++) {
+			for (int j = 0; j < columns1; j++) {
+				matrix1.setElement(i, j, scanner.nextInt());
+			}
+		}
+
+		System.out.println("Enter the number of rows and columns for the second matrix:");
+		int rows2 = scanner.nextInt();
+		int columns2 = scanner.nextInt();
+		Matrix matrix2 = new Matrix(rows2, columns2);
+
+		System.out.println("Enter the elements of the second matrix:");
+		for (int i = 0; i < rows2; i++) {
+			for (int j = 0; j < columns2; j++) {
+				matrix2.setElement(i, j, scanner.nextInt());
+			}
+		}
+
+		System.out.println("First Matrix:");
+		printMatrix(matrix1);
+		System.out.println("Second Matrix:");
+		printMatrix(matrix2);
+
+		System.out.println("Adding two matrices:");
+		matrix1.add(matrix2);
+
+	}
+
+	private static void printMatrix(Matrix matrix) {
+		for (int i = 0; i < matrix.getRows(); i++) {
+			for (int j = 0; j < matrix.getColumns(); j++) {
+				System.out.print(matrix.elements[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+}
+===================================================================================================================
+/*
+Write a program by creating an Employee & class having the following methods
+and print the final salary.
+
+a. getInfo(); which takes the salary, number of hours of work per day of
+employee as parameter
+b. AddSal(); which adds $10 to salary of the employee if it is less
+than $500.
+c. AddWork(): which adds $5 to salary of employee if the number of hours of
+work per day is more than 6 hours.
+ */
+package assignment3;
+
+import java.util.Scanner;
+
+public class Q3Employee {
+	Scanner sc = new Scanner(System.in);
+	private int empId;
+	private String empName;
+	private int noOfHours;
+	private double empSalary;
+
+	public Q3Employee() {
+		this.empId = empId;
+		this.empName = empName;
+		this.noOfHours = noOfHours;
+		this.empSalary = empSalary;
+	}
+
+	void getInfo() {
+		System.out.println("Enter Employee ID: ");
+		empId = sc.nextInt();
+		System.out.println("Enter Employee Name:");
+		empName = sc.next();
+		System.out.println("Enter number of hours employee worked: ");
+		noOfHours = sc.nextInt();
+		System.out.println("Enter Employee salary: ");
+		empSalary = sc.nextDouble();
+	}
+
+	void addSal() {
+		if (empSalary < 500) {
+			empSalary = empSalary + 10;
+		}
+	}
+
+	void addWork() {
+		if (noOfHours >= 6) {
+			empSalary = empSalary + 5;
+		}
+	}
+	
+	void display()
+	{
+		System.out.println("Employee ID is: "+empId);
+		System.out.println("Employee Name is: "+empName);
+		System.out.println("Employee final salary is: "+empSalary);
+	}
+	
+	public static void main(String args[])
+	{
+		Q3Employee emp = new Q3Employee();
+		emp.getInfo();
+		emp.addSal();
+		emp.addWork();
+		emp.display();
+	}
+
+}
+======================================================================================================================
+/*
+Write a class Time with three data members to store hr, min and seconds.
+Create two constructors and apply checks to set valid time. (hr;24, min;60, sec;60). 
+Also create display function which displays all data members.
+ */
+package assignment3;
+
+import java.util.Scanner;
+
+public class Q5Time {
+	private int hour;
+	private int minute;
+	private int second;
+
+	public Q5Time() {
+		this(0, 0, 0);
+	}
+
+	public Q5Time(int hour, int minute, int second) {
+		if (isValidTime(hour, minute, second)) {
+			this.hour = hour;
+			this.minute = minute;
+			this.second = second;
+		} else {
+			throw new IllegalArgumentException("Invalid time format");
+		}
+	}
+
+	private boolean isValidTime(int hour, int minute, int second) {
+		return hour >= 0 && hour < 24 && minute >= 0 && minute < 60 && second >= 0 && second < 60;
+	}
+
+	public void display() {
+		System.out.printf("Time: %02d:%02d:%02d%n", hour, minute, second);
+	}
+
+	public static void main(String[] args) {
+		Q5Time t1 = new Q5Time(12, 30, 45);
+		t1.display();
+
+		Q5Time t2 = Q5Time.fromString("09:15:20");
+		t2.display();
+
+	}
+
+	public static Q5Time fromString(String timeStr) {
+		String[] parts = timeStr.split(":");
+		int hour = Integer.parseInt(parts[0]);
+		int minute = Integer.parseInt(parts[1]);
+		int second = Integer.parseInt(parts[2]);
+		return new Q5Time(hour, minute, second);
+	}
+}
+=====================================================================================================================
+/*
+ * Write a program to print the area and perimeter of a triangle having sides of
+3, 4 and 5 units by creating a class named &#39;Triangle&#39; with parameter in its
+constructor.
+ */
+package assignment3;
+
+public class Question1 {
+	private double side1;
+	private double side2;
+	private double side3;
+
+	public Question1(double side1, double side2, double side3) {
+		this.side1 = side1;
+		this.side2 = side2;
+		this.side3 = side3;
+	}
+
+	public double calculatePerimeter() {
+		return side1 + side2 + side3;
+	}
+
+	public double calculateArea() {
+		double s = (side1 + side2 + side3) / 2;
+		return Math.sqrt(s * (s - side1) * (s - side2) * (s - side3));
+	}
+
+	public static void main(String[] args) {
+		Question1 triangle = new Question1(3, 4, 5);
+
+		System.out.println("Perimeter of the triangle: " + triangle.calculatePerimeter() + " units");
+		System.out.println("Area of the triangle: " + triangle.calculateArea() + " square units");
+	}
+}
+================================================================================================================================
+package assignment3;
+
+class SavingAccount {
+	private static double annualInterestRate;
+	private double savingsBalance;
+
+	public SavingAccount(double savingsBalance) {
+		this.savingsBalance = savingsBalance;
+	}
+
+	public void calculateMonthlyInterest() {
+		double monthlyInterest = (savingsBalance * annualInterestRate) / 12;
+		savingsBalance += monthlyInterest;
+	}
+
+	public static void modifyInterestRate(double newRate) {
+		annualInterestRate = newRate;
+	}
+
+	public double getSavingsBalance() {
+		return savingsBalance;
+	}
+}
+
+class SavingsAccountTest {
+	public static void main(String[] args) {
+		SavingAccount saver1 = new SavingAccount(2000.00);
+		SavingAccount saver2 = new SavingAccount(3000.00);
+
+		SavingAccount.modifyInterestRate(0.03);
+
+		System.out.println("Initial Balances with 3% Annual Interest Rate:");
+		saver1.calculateMonthlyInterest();
+		saver2.calculateMonthlyInterest();
+		System.out.println("Saver1 balance: $" + saver1.getSavingsBalance());
+		System.out.println("Saver2 balance: $" + saver2.getSavingsBalance());
+
+		SavingAccount.modifyInterestRate(0.04); 
+
+		System.out.println("\nBalances after setting Annual Interest Rate to 4%:");
+		saver1.calculateMonthlyInterest();
+		saver2.calculateMonthlyInterest();
+		System.out.println("Saver1 balance: $" + saver1.getSavingsBalance());
+		System.out.println("Saver2 balance: $" + saver2.getSavingsBalance());
+	}
+}
+=============================================================================================================================
+package assignment3;
+
+class Product {
+	private String name;
+	private double price;
+
+	public Product(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product{" + "name='" + name + '\'' + ", price=" + price + '}';
+	}
+}
+
+class ShoppingCart {
+	private Product[] products;
+	private int size;
+	private static final int MAX_CAPACITY = 10;
+
+	public ShoppingCart() {
+		this.products = new Product[MAX_CAPACITY];
+		this.size = 0;
+	}
+
+	public void addProduct(Product product) {
+		if (size < MAX_CAPACITY) {
+			products[size++] = product;
+			System.out.println("Product added successfully.");
+		} else {
+			System.out.println("Shopping cart is full. Cannot add more products.");
+		}
+	}
+
+	public double calculateTotalCost() {
+		double totalCost = 0;
+		for (int i = 0; i < size; i++) {
+			totalCost += products[i].getPrice();
+		}
+		return totalCost;
+	}
+
+	public void displayContents() {
+		if (size == 0) {
+			System.out.println("Shopping cart is empty.");
+		} else {
+			System.out.println("Products in the shopping cart:");
+			for (int i = 0; i < size; i++) {
+				System.out.println(products[i]);
+			}
+		}
+	}
+}
+
+public class ShoppingCartTest {
+	public static void main(String[] args) {
+		ShoppingCart cart = new ShoppingCart();
+
+		// Adding products to the cart
+		cart.addProduct(new Product("Laptop", 55000));
+		cart.addProduct(new Product("Smartphone", 38000));
+		cart.addProduct(new Product("Headphones", 1500));
+
+		// Displaying contents of the cart
+		cart.displayContents();
+
+		// Calculating total cost
+		double totalCost = cart.calculateTotalCost();
+		System.out.println("Total cost: " + totalCost);
+	}
+}
+=========================================================================================
