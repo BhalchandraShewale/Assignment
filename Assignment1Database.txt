@@ -1,0 +1,159 @@
+Question1
+
+create table customer(
+    -> custid int primary key,
+    -> email_address varchar(75),
+    -> fname varchar(50),
+    -> lname varchar(50),
+    -> address1 varchar(50),
+    -> address2 varchar(50),
+    -> customer_zip varchar(10),
+    -> area_code char(3),
+    -> telephone_number char(7));
+
+insert into customer values(1,'brucewayne@iamrich.com','Bruce','Wayne','Gotham City','New Jersey','369369','87','4569');
+
+ insert into customer values(2,'tonystark@ironman.com','Tony','Stark','Manhattan','New York','796561','31','3465');
+
+ insert into customer values(3,'peterparkar@spiderman.com','Peter','Parker','Queens','New York','12364','68','5555');
+
+mysql> desc customer;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| custid           | int         | NO   | PRI | NULL    |       |
+| email_address    | varchar(75) | YES  |     | NULL    |       |
+| fname            | varchar(50) | YES  |     | NULL    |       |
+| lname            | varchar(50) | YES  |     | NULL    |       |
+| address1         | varchar(50) | YES  |     | NULL    |       |
+| address2         | varchar(50) | YES  |     | NULL    |       |
+| customer_zip     | varchar(10) | YES  |     | NULL    |       |
+| area_code        | char(3)     | YES  |     | NULL    |       |
+| telephone_number | char(7)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> select * from customer;
++--------+---------------------------+-------+--------+-------------+------------+--------------+-----------+------------------+
+| custid | email_address             | fname | lname  | address1    | address2   | customer_zip | area_code | telephone_number |
++--------+---------------------------+-------+--------+-------------+------------+--------------+-----------+------------------+
+|      1 | brucewayne@iamrich.com    | Bruce | Wayne  | Gotham City | New Jersey | 369369       | 87        | 4569             |
+|      2 | tonystark@ironman.com     | Tony  | Stark  | Manhattan   | New York   | 796561       | 31        | 3465             |
+|      3 | peterparkar@spiderman.com | Peter | Parker | Queens      | New York   | 12364        | 68        | 5555             |
++--------+---------------------------+-------+--------+-------------+------------+--------------+-----------+------------------+
+
+===========================================================================================================
+
+Question 2
+
+mysql> create table cardinfo(
+    -> card_id int primary key,
+    -> ccnum varchar(16),
+    -> ccexp date,
+    -> name_on_card varchar(100),
+    -> email_address varchar(75));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into cardinfo values (1,'7894565','2025-12-31','Steve Rogers','steve@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into cardinfo values (2,'5647894','2024-12-31','James Gunn','james@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into cardinfo values (3,'5698741','2026-12-31','Thomas Shelby','thomas@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc cardinfo;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| card_id       | int          | NO   | PRI | NULL    |       |
+| ccnum         | varchar(16)  | YES  |     | NULL    |       |
+| ccexp         | date         | YES  |     | NULL    |       |
+| name_on_card  | varchar(100) | YES  |     | NULL    |       |
+| email_address | varchar(75)  | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from cardinfo;
++---------+---------+------------+---------------+------------------+
+| card_id | ccnum   | ccexp      | name_on_card  | email_address    |
++---------+---------+------------+---------------+------------------+
+|       1 | 7894565 | 2025-12-31 | Steve Rogers  | steve@gmail.com  |
+|       2 | 5647894 | 2024-12-31 | James Gunn    | james@gmail.com  |
+|       3 | 5698741 | 2026-12-31 | Thomas Shelby | thomas@gmail.com |
++---------+---------+------------+---------------+------------------+
+3 rows in set (0.00 sec)
+
+==========================================================================================================
+
+Question 3
+
+mysql> create table cardtype(
+    -> card_id int primary key,
+    -> card_type varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into cardtype values(1,'Credit Card');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into cardtype values(2,'Debit Card');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> desc cardtype;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| card_id   | int         | NO   | PRI | NULL    |       |
+| card_type | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from cardtype;
++---------+-------------+
+| card_id | card_type   |
++---------+-------------+
+|       1 | Credit Card |
+|       2 | Debit Card  |
++---------+-------------+
+2 rows in set (0.00 sec)
+============================================================================================================
+
+Question 4
+
+mysql> create table local(
+    -> zip varchar(10) primary key,
+    -> city varchar(50),
+    -> state char(2));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into local values('789456','Nashik','Mh');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into local values('147258','Lukhnow','UP');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into local values('741852','Mumbai','MH');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc local;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| zip   | varchar(10) | NO   | PRI | NULL    |       |
+| city  | varchar(50) | YES  |     | NULL    |       |
+| state | char(2)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from local;
++--------+---------+-------+
+| zip    | city    | state |
++--------+---------+-------+
+| 147258 | Lukhnow | UP    |
+| 741852 | Mumbai  | MH    |
+| 789456 | Nashik  | Mh    |
++--------+---------+-------+
+3 rows in set (0.00 sec)
+===========================================================================================================
+
